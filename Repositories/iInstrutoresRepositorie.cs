@@ -8,6 +8,14 @@ namespace myLive.Repositories
 {
     public interface iInstrutoresRepositorie
     {
-        InstrutoresModel Adicionar(InstrutoresModel Instrutor); 
+        InstrutoresModel Adicionar(InstrutoresModel Instrutor);
+
+        InstrutoresModel BuscarPorID(int ID);
+
+        List<InstrutoresModel> BuscarTodos();
+        bool EmailDuplicado (string Email);
+
+        bool InstagramDuplicado(string Instagram);
+
     }
 }

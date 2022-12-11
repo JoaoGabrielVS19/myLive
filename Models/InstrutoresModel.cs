@@ -23,8 +23,8 @@ namespace myLive.Models
         [EmailAddress(ErrorMessage ="Informe um email válido")]
         public string Email { get; set; }
 
-        
-        [Url(ErrorMessage ="Informe uma URL válida")]
-        public string EnderecoInstagem { get; set; }
+        public string EnderecoInstagram { get; set; }
+
+        public bool? Excluido { get; set; }
     }
 }

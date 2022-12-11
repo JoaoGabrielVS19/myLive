@@ -1,8 +1,60 @@
-﻿@{
-    ViewData["Title"] = "Instrutores";
+﻿@model List<InstrutoresModel>
+@{
+    ViewData["Title"] = "Listagem de Instrutores";
 }
-<h1>@ViewData["Title"]</h1>
+<div class="text-center">
 
-<p>Listagem dos instrutores</p>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary" role="button" asp-controller="Instrutores" asp-action="Adicionar">Adicionar</a>
+    </div>
+    <br />
 
-<a class="btn btn-primary" role="button" asp-controller="Instrutores" asp-action="Adicionar">Adicionar</a>
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+            @TempData["MensagemSucesso"]
+        </div>
+    }
+
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+
+    <h1 class="display-4">Listagem de Instrutores</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Instagram</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (InstrutoresModel instrutor in Model)
+                {
+                    <tr>
+                        <th scope="row">@instrutor.ID</th>
+                        <td>@instrutor.Nome</td>
+                        <td>@instrutor.Email</td>
+                        <td>@instrutor.EnderecoInstagram</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a role="button" class="btn btn-primary" asp-route-id="@instrutor.ID" asp-controller="Instrutores" asp-action="Editar">Editar</a>
+                                <a role="button" class="btn btn-danger" asp-route-id="@instrutor.ID" asp-controller="Instrutores" asp-action="ExcluirConfirmacao">Excluir</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

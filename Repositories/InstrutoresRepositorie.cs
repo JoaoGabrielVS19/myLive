@@ -22,5 +22,35 @@ namespace myLive.Repositories
 
             return Instrutor;
         }
+
+        public InstrutoresModel BuscarPorID(int ID)
+        {
+            return _bancoContext.Instrutores.FirstOrDefault(x => x.ID == ID);
+        }
+
+        public List<InstrutoresModel> BuscarTodos()
+        {
+            return _bancoContext.Instrutores.Where(x => x.Excluido == false).OrderBy(x => x.ID).ToList();
+        }
+
+        public bool EmailDuplicado(string Email)
+        {
+            InstrutoresModel instrutor = _bancoContext.Instrutores.FirstOrDefault(x => x.Email == Email);
+            if (instrutor != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool InstagramDuplicado(string Instagram)
+        {
+            InstrutoresModel instrutor = _bancoContext.Instrutores.FirstOrDefault(x => x.EnderecoInstagram == Instagram);
+            if (instrutor != null)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

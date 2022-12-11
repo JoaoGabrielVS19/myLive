@@ -7,31 +7,42 @@
     <h1 class="display-4">Cadastro de Instrutor</h1>
 </div>
 
-<form asp-controller="Instrutores" asp-action="Adicionar" method="post">
-    <div class="form-group">
-        <label for="nome">Nome</label>
-        <input type="text" asp-for="Nome" class="form-control" placeholder="Digite o nome do instrutor">
-        @Html.ValidationMessageFor(x => x.Nome)
-    </div>
+<div class="text-center">
 
-    <div class="form-group">
-        <label for="datanascimento">Data de nascimento</label>
-        <input type="date" asp-for="DataNascimento">
-        @Html.ValidationMessageFor(x => x.DataNascimento)
-    </div>
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+</div>
 
-    <div class="form-group">
-        <label for="email">E-mail</label>
-        <input type="text" asp-for="Email" class="form-control" placeholder="Digite o email do instrutor">
-        @Html.ValidationMessageFor(x => x.Email)
-    </div>
+    <form asp-controller="Instrutores" asp-action="Adicionar" method="post">
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" asp-for="Nome" class="form-control" placeholder="Digite o nome do instrutor">
+            @Html.ValidationMessageFor(x => x.Nome)
+        </div>
 
-    <div class="form-group">
-        <label for="enderecoinstagram">URL Instagram</label>
-        <input type="text" asp-for="EnderecoInstagem" class="form-control" placeholder="Informe a URL do instagram do instrutor" />
-        @Html.ValidationMessageFor(x => x.EnderecoInstagem)
-    </div>
+        <div class="form-group">
+            <label for="datanascimento">Data de nascimento</label>
+            <input type="date" asp-for="DataNascimento">
+            @Html.ValidationMessageFor(x => x.DataNascimento)
+        </div>
 
-    <button type="submit" class="btn btn-primary">Cadastrar</button>
-    <a class="btn btn-secondary" asp-controller="Instrutores" asp-action="Index" role="button">Voltar</a>
-</form>
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="text" asp-for="Email" class="form-control" placeholder="Digite o email do instrutor">
+            @Html.ValidationMessageFor(x => x.Email)
+        </div>
+
+        <div class="form-group">
+            <label for="enderecoinstagram">URL Instagram</label>
+            <input type="text" asp-for="EnderecoInstagram" class="form-control" placeholder="Informe a URL do instagram do instrutor" />
+            @Html.ValidationMessageFor(x => x.EnderecoInstagram)
+        </div>
+
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+        <a class="btn btn-secondary" asp-controller="Instrutores" asp-action="Index" role="button">Voltar</a>
+    </form>
