@@ -13,9 +13,5 @@ namespace myLive.Repositories
         InstrutoresModel BuscarPorID(int ID);
 
         List<InstrutoresModel> BuscarTodos();
-        bool EmailDuplicado (string Email);
-
-        bool InstagramDuplicado(string Instagram);
-
     }
 }

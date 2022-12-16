@@ -32,25 +32,5 @@ namespace myLive.Repositories
         {
             return _bancoContext.Instrutores.Where(x => x.Excluido == null).OrderBy(x => x.ID).ToList();
         }
-
-        public bool EmailDuplicado(string Email)
-        {
-            InstrutoresModel instrutor = _bancoContext.Instrutores.FirstOrDefault(x => x.Email == Email);
-            if (instrutor != null)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public bool InstagramDuplicado(string Instagram)
-        {
-            InstrutoresModel instrutor = _bancoContext.Instrutores.FirstOrDefault(x => x.EnderecoInstagram == Instagram);
-            if (instrutor != null)
-            {
-                return true;
-            }
-            return false;
-        }
     }
 }
