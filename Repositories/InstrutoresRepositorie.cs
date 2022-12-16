@@ -30,7 +30,7 @@ namespace myLive.Repositories
 
         public List<InstrutoresModel> BuscarTodos()
         {
-            return _bancoContext.Instrutores.Where(x => x.Excluido == false).OrderBy(x => x.ID).ToList();
+            return _bancoContext.Instrutores.Where(x => x.Excluido == null).OrderBy(x => x.ID).ToList();
         }
 
         public bool EmailDuplicado(string Email)

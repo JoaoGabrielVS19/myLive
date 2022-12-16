@@ -5,15 +5,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using myLive.Models;
 using myLive.Repositories;
+using FluentValidation.Results;
+using myLive.Validator;
+using myLive.Data;
 
 namespace myLive.Controllers
 {
     public class InstrutoresController : Controller
     {
         private readonly iInstrutoresRepositorie _instrutorRepositorio;
-        public InstrutoresController(iInstrutoresRepositorie instrutorRepositorio)
+        private readonly BancoContext _db;
+        public InstrutoresController(iInstrutoresRepositorie instrutorRepositorio, BancoContext db)
         {
             _instrutorRepositorio = instrutorRepositorio;
+            _db = db;
         }
 
         public IActionResult Index()
@@ -34,45 +39,30 @@ namespace myLive.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    bool EmailDuplicado = _instrutorRepositorio.EmailDuplicado(Instrutor.Email);
+                    InstrutoresValidator validator = new InstrutoresValidator(_db);
+                    ValidationResult results = validator.Validate(Instrutor);
 
-                    if (EmailDuplicado == false)
+                    if (results.IsValid)
                     {
-                        bool InstagramDuplicado = _instrutorRepositorio.InstagramDuplicado(Instrutor.EnderecoInstagram);
-
-                        if(InstagramDuplicado == false)
-                        {
-                            int Idade = DateTime.Now.Year - Instrutor.DataNascimento.Year;
-
-                            if (Idade >= 18)
-                            {
-                                _instrutorRepositorio.Adicionar(Instrutor);
-                                TempData["MensagemSucesso"] = "Instrutor cadastrado com sucesso!";
-                                return RedirectToAction("Index");
-                            }
-                            else
-                            {
-                                TempData["MensagemErro"] = "Para realizar o cadastro deve-se ser maior de 18 anos.";
-                            }
-
-                        }
-                        else
-                        {
-                            TempData["MensagemErro"] = "Já existe instrutor cadastro com este Instagram!";
-                        }   
+                        _instrutorRepositorio.Adicionar(Instrutor);
+                        TempData["MensagemSucesso"] = "Instrutor cadastrado com sucesso!";
+                        return RedirectToAction("Index");
                     }
                     else
                     {
-                        TempData["MensagemErro"] = "Já existe instrutor cadastro com este E-mail!";
+                        foreach (var failure in results.Errors)
+                        {
+                            TempData["MensagemErro"] = "Ops!, não foi possível cadastrar seu instrutor, tente novamente!" + "Error: " + "Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage;
+                        }
                     }
                 }
                 return View(Instrutor);
+            
             }catch(Exception error)
             {
                 TempData["MensagemErro"] = "Ops!, não foi possível cadastrar seu instrutor, tente novamente!" + " Error: " + error.Message;
                 return RedirectToAction("Index");
             }
-            
         }
     }
 }
