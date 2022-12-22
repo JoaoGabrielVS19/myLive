@@ -1,0 +1,12 @@
+﻿@model InstrutoresModel;
+
+@{
+    ViewData["Title"] = "Confirmação de exclusão de Instrutor";
+}
+
+<div class="text-center">
+    <h3>Deseja realmente excluir esse instrutor (@Model.Nome)?</h3>
+</div>
+
+<a class="btn btn-secondary" role="button" asp-controller="Instrutores" asp-action="Index">Cancelar exclusão</a>
+<a class="btn btn-danger" role="button" asp-controller="Instrutores" asp-action="Excluir" asp-route-id="@Model.ID">Confirmar exclusão</a>

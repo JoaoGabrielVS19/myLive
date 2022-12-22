@@ -72,7 +72,6 @@ namespace myLive.Controllers
         }
 
         [HttpPost]
-
         public IActionResult Editar(InstrutoresModel Instrutor)
         {
             try
@@ -102,6 +101,35 @@ namespace myLive.Controllers
             catch(Exception error)
             {
                 TempData["MensagemErro"] = "Ops!, não foi possível alterar o instrutor, tente novamente!" + " Error: " + error.Message;
+                return RedirectToAction("Index");
+            }
+        }
+
+        public IActionResult ConfirmacaoExclusao(int ID)
+        {
+            InstrutoresModel contato = _instrutorRepositorio.BuscarPorID(ID);
+            return View(contato);
+        }
+
+        public IActionResult Excluir(int ID)
+        {
+            try
+            {
+                bool instrutorExcluido = _instrutorRepositorio.Excluir(ID);
+
+                if (instrutorExcluido)
+                {
+                    TempData["MensagemSucesso"] = "Instrutor excluido com sucesso!";
+                }
+                else
+                {
+                    TempData["MensagemErro"] = "Ocorreu um erro na exclusão do instrutor, tente novamente!";
+                }
+
+                return RedirectToAction("Index");
+            }catch(Exception error)
+            {
+                TempData["MensagemErro"] = "Ocorreu um erro na exclusão do instrutor, tente novamente! error: " + error.Message;
                 return RedirectToAction("Index");
             }
         }

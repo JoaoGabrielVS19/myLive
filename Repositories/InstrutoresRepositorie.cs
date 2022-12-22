@@ -49,5 +49,19 @@ namespace myLive.Repositories
         {
             return _bancoContext.Instrutores.Where(x => x.Excluido == null).OrderBy(x => x.ID).ToList();
         }
+
+        public bool Excluir(int ID)
+        {
+            InstrutoresModel instrutorDB = BuscarPorID(ID);
+
+            if (instrutorDB.ID == 0) throw new Exception("Ocorreu um erro na exclusão do instrutor, tente novamente!");
+
+            instrutorDB.Excluido = true;
+
+            _bancoContext.Instrutores.Update(instrutorDB);
+            _bancoContext.SaveChanges();
+
+            return true;
+        }
     }
 }

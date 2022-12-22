@@ -12,6 +12,8 @@ namespace myLive.Repositories
 
         InstrutoresModel Alterar(InstrutoresModel Instrutor);
 
+        bool Excluir(int ID);
+
         InstrutoresModel BuscarPorID(int ID);
 
         List<InstrutoresModel> BuscarTodos();
