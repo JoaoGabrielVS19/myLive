@@ -10,8 +10,11 @@ namespace myLive.Repositories
     {
         InstrutoresModel Adicionar(InstrutoresModel Instrutor);
 
+        InstrutoresModel Alterar(InstrutoresModel Instrutor);
+
         InstrutoresModel BuscarPorID(int ID);
 
         List<InstrutoresModel> BuscarTodos();
+
     }
 }

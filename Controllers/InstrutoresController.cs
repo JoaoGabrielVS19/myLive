@@ -64,5 +64,46 @@ namespace myLive.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        public IActionResult Editar(int ID)
+        {
+            InstrutoresModel instrutor = _instrutorRepositorio.BuscarPorID(ID);
+            return View(instrutor);
+        }
+
+        [HttpPost]
+
+        public IActionResult Editar(InstrutoresModel Instrutor)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    InstrutoresValidator validador = new InstrutoresValidator(_db);
+                    ValidationResult resultado = validador.Validate(Instrutor);
+
+                    if (resultado.IsValid)
+                    {
+                        _instrutorRepositorio.Alterar(Instrutor);
+                        TempData["MensagemSucesso"] = "Instrutor alterado com sucesso!";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        foreach (var failure in resultado.Errors)
+                        {
+                            TempData["MensagemErro"] = "Ops!, não foi possível alterar seu instrutor, tente novamente!" + "Error: " + "Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage;
+                        }
+                    }
+                }
+
+                return View("Editar", Instrutor);
+            }
+            catch(Exception error)
+            {
+                TempData["MensagemErro"] = "Ops!, não foi possível alterar o instrutor, tente novamente!" + " Error: " + error.Message;
+                return RedirectToAction("Index");
+            }
+        }
     }
 }

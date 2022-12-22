@@ -1,0 +1,57 @@
+﻿@model InstrutoresModel
+@{
+    ViewData["Title"] = "Editar Instrutor";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Editar Instrutor</h1>
+</div>
+
+<form asp-controller="Instrutores" asp-action="Editar" method="post">
+
+    <input type="hidden" asp-for="ID" />
+
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+            @TempData["MensagemSucesso"]
+        </div>
+    }
+
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+
+    <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" asp-for="Nome" class="form-control" placeholder="Digite o nome do instrutor">
+        @Html.ValidationMessageFor(x => x.Nome)
+    </div>
+
+    <div class="form-group">
+        <label for="datanascimento">Data de nascimento</label>
+        <input type="date" asp-for="DataNascimento">
+        @Html.ValidationMessageFor(x => x.DataNascimento)
+    </div>
+
+    <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="text" asp-for="Email" class="form-control" placeholder="Digite o email do instrutor">
+        @Html.ValidationMessageFor(x => x.Email)
+    </div>
+
+    <div class="form-group">
+        <label for="enderecoinstagram">URL Instagram</label>
+        <input type="text" asp-for="EnderecoInstagram" class="form-control" placeholder="Informe a URL do instagram do instrutor" />
+        @Html.ValidationMessageFor(x => x.EnderecoInstagram)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Alterar</button>
+    <a class="btn btn-secondary" asp-controller="Instrutores" asp-action="Index" role="button">Voltar</a>
+</form>
+
