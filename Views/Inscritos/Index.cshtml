@@ -1,0 +1,60 @@
+﻿@model List<InscritosModel>
+@{
+    ViewData["Title"] = "Listagem de Inscritos";
+}
+<div class="text-center">
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <a class="btn btn-primary" role="button" asp-controller="Inscritos" asp-action="Adicionar">Adicionar</a>
+    </div>
+    <br />
+
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+            @TempData["MensagemSucesso"]
+        </div>
+    }
+
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+
+    <h1 class="display-4">Listagem de Inscritos</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#ID</th>
+                <th scope="col">Nome</th>
+                <th scope="col">E-mail</th>
+                <th scope="col">Instagram</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (InscritosModel inscrito in Model)
+                {
+                    <tr>
+                        <th scope="row">@inscrito.ID</th>
+                        <td>@inscrito.Nome</td>
+                        <td>@inscrito.Email</td>
+                        <td>@inscrito.EnderecoInstagram</td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <a role="button" class="btn btn-primary" asp-route-id="@inscrito.ID" asp-controller="Inscritos" asp-action="Editar">Editar</a>
+                                <a role="button" class="btn btn-danger" asp-route-id="@inscrito.ID" asp-controller="Inscritos" asp-action="ConfirmacaoExclusao">Excluir</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

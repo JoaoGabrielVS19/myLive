@@ -52,7 +52,7 @@ namespace myLive.Controllers
                     {
                         foreach (var failure in results.Errors)
                         {
-                            TempData["MensagemErro"] = "Ops!, não foi possível cadastrar seu instrutor, tente novamente!" + "Error: " + "Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage;
+                            TempData["MensagemErro"] = failure.ErrorMessage;
                         }
                     }
                 }
@@ -91,7 +91,7 @@ namespace myLive.Controllers
                     {
                         foreach (var failure in resultado.Errors)
                         {
-                            TempData["MensagemErro"] = "Ops!, não foi possível alterar seu instrutor, tente novamente!" + "Error: " + "Property " + failure.PropertyName + " failed validation. Error was: " + failure.ErrorMessage;
+                            TempData["MensagemErro"] = failure.ErrorMessage;
                         }
                     }
                 }

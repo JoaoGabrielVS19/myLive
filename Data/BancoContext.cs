@@ -18,5 +18,6 @@ namespace myLive.Data
         }
 
         public DbSet<InstrutoresModel> Instrutores { get; set; }
+        public DbSet<InscritosModel> Inscritos { get; set; }
     }
 }

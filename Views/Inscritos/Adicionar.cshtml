@@ -1,0 +1,48 @@
+﻿@model InscritosModel
+@{
+    ViewData["Title"] = "Cadastro de Inscritos";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Cadastro de Inscritos</h1>
+</div>
+
+<div class="text-center">
+
+    @if (TempData["MensagemErro"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert" arial-label="Close">X</button>
+            @TempData["MensagemErro"]
+        </div>
+    }
+</div>
+
+<form asp-controller="Inscritos" asp-action="Adicionar" method="post">
+    <div class="form-group">
+        <label for="nome">Nome</label>
+        <input type="text" asp-for="Nome" class="form-control" placeholder="Digite o nome do inscrito">
+        @Html.ValidationMessageFor(x => x.Nome)
+    </div>
+
+    <div class="form-group">
+        <label for="datanascimento">Data de nascimento</label>
+        <input type="date" asp-for="DataNascimento">
+        @Html.ValidationMessageFor(x => x.DataNascimento)
+    </div>
+
+    <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="text" asp-for="Email" class="form-control" placeholder="Digite o email do inscrito">
+        @Html.ValidationMessageFor(x => x.Email)
+    </div>
+
+    <div class="form-group">
+        <label for="enderecoinstagram">URL Instagram</label>
+        <input type="text" asp-for="EnderecoInstagram" class="form-control" placeholder="Informe a URL do instagram do inscrito" />
+        @Html.ValidationMessageFor(x => x.EnderecoInstagram)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+    <a class="btn btn-secondary" asp-controller="Inscritos" asp-action="Index" role="button">Voltar</a>
+</form>
